@@ -6,19 +6,14 @@ public class Main {
         int n = sc.nextInt();
         double max = -1;
         double[] score = new double[n];
-        double avg = 0;
+        double sum = 0;
 
         for (int i = 0; i < n; i++) {
             score[i] = sc.nextInt();
             if (score[i] > max) max = score[i];
+            sum += score[i];
         }
 
-        for (int i = 0; i < n; i++) {
-            score[i] = (score[i] / max) * 100;
-            avg += score[i];
-        }
-        avg /= n;
-
-        System.out.println(avg);
+        System.out.println(sum * 100 / max / n);
     }
 }
