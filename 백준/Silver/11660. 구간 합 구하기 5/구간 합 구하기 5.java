@@ -15,7 +15,7 @@ public class Main {
         for (int i = 1; i <= n; i++) {
             st = new StringTokenizer(br.readLine());
             for (int j = 1; j <= n; j++) {
-                arr[i][j] = arr[i][j - 1] + Integer.parseInt(st.nextToken());
+                arr[i][j] = arr[i][j - 1] + arr[i - 1][j] - arr[i - 1][j - 1] + Integer.parseInt(st.nextToken());
             }
         }
         for (int i = 0; i < m; i++) {
@@ -24,11 +24,8 @@ public class Main {
             int y1 = Integer.parseInt(st.nextToken());
             int x2 = Integer.parseInt(st.nextToken());
             int y2 = Integer.parseInt(st.nextToken());
-            int sum = 0;
 
-            for (int j = x1; j <= x2; j++) {
-                sum += arr[j][y2] - arr[j][y1 - 1];
-            }
+            int sum = arr[x2][y2] - arr[x2][y1 - 1] - arr[x1 - 1][y2] + arr[x1 - 1][y1 - 1];
             System.out.println(sum);
         }
     }
