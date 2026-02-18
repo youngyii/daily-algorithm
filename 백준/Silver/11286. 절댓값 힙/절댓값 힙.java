@@ -4,6 +4,7 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
 
         long n = Long.parseLong(br.readLine());
         PriorityQueue<Integer> queue = new PriorityQueue<>((o1, o2) -> {
@@ -20,13 +21,15 @@ public class Main {
 
             if (x == 0) {
                 if (!queue.isEmpty()) {
-                    System.out.println(queue.poll());
+                    sb.append(queue.poll()).append("\n");
                 } else {
-                    System.out.println("0");
+                    sb.append("0\n");
                 }
             } else {
                 queue.add(x);
             }
         }
+
+        System.out.print(sb.toString());
     }
 }
