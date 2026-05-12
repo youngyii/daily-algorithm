@@ -10,28 +10,23 @@ int solution(vector<int> bandage, int health, vector<vector<int>> attacks) {
     int t = bandage[0]; // 시전 시간
     int x = bandage[1]; // 초당 회복량
     int y = bandage[2]; // 추가 회복량
-    int tCnt = 0;   // 붕대 감기 시전 시간
-    int now  = 0;   // 현재 공격 순서 체크
     
-    for (int i = 1; i <= attacks.back()[0]; i++) {
-        if (attacks[now][0] == i) {
-            answer -= attacks[now][1];
-            tCnt = 0;
-            now++;
-            if (answer <= 0) {
-                answer = -1;
-                break;
-            }
-        } else {
-            //answer = (answer + x < health) ? answer + x : health;
-            answer = min(answer + x, health);
-            tCnt++;
-            if (tCnt == t) {
-                //answer = (answer + y < health) ? answer + y : health;
-                answer = min(answer + y, health);
-                tCnt = 0;
-            }
+    int lastTime = 0;   // 직전 공격이 끝난 시간
+    
+    for (int i = 0; i < attacks.size(); i++) {
+        // 공격 사이의 시간
+        int term = attacks[i][0] - lastTime - 1;
+        
+        if (term > 0) {
+            // 연속 성공 횟수에 따른 총 회복량
+            answer = min(health, answer + (term * x) + (term / t * y));
         }
+        
+        answer -= attacks[i][1];
+        
+        if (answer <= 0) return -1;
+        
+        lastTime = attacks[i][0];
     }
     
     return answer;
