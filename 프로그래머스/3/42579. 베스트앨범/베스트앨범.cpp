@@ -35,13 +35,12 @@ vector<int> solution(vector<string> genres, vector<int> plays) {
     // 장르별 노래 정렬
     for (int i = 0; i < gvec.size(); i++) {
         string genre = gvec[i].first;
-        vector<pair<int,long>> pvec(pmap[genre].begin(), pmap[genre].end());
+        vector<pair<int,long>>& pvec = pmap[genre];
         sort(pvec.begin(), pvec.end(), pcmp);
         
-        if (pvec.size() == 1) answer.push_back(pvec[0].first);
-        else {
-            answer.push_back(pvec[0].first);
-            answer.push_back(pvec[1].first);
+        int cnt = min(2, (int)pvec.size());
+        for (int j = 0; j < cnt; j++) {
+            answer.push_back(pvec[j].first);
         }
     }
     
